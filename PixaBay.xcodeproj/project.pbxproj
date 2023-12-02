@@ -49,6 +49,9 @@
 		06C3BC822B1B39420040A2EC /* PixaBayUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PixaBayUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		06C3BC862B1B39420040A2EC /* PixaBayUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PixaBayUITests.swift; sourceTree = "<group>"; };
 		06C3BC882B1B39420040A2EC /* PixaBayUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PixaBayUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		06C3BC9A2B1B3B9E0040A2EC /* Data */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = Data; sourceTree = "<group>"; };
+		06C3BC9B2B1B3BB20040A2EC /* Domain */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = Domain; sourceTree = "<group>"; };
+		06C3BC9C2B1B3BC90040A2EC /* Presentation */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = Presentation; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -79,6 +82,7 @@
 		06C3BC592B1B39410040A2EC = {
 			isa = PBXGroup;
 			children = (
+				06C3BC992B1B3B6D0040A2EC /* Packages */,
 				06C3BC642B1B39410040A2EC /* PixaBay */,
 				06C3BC7B2B1B39420040A2EC /* PixaBayTests */,
 				06C3BC852B1B39420040A2EC /* PixaBayUITests */,
@@ -125,6 +129,16 @@
 				06C3BC882B1B39420040A2EC /* PixaBayUITestsLaunchTests.swift */,
 			);
 			path = PixaBayUITests;
+			sourceTree = "<group>";
+		};
+		06C3BC992B1B3B6D0040A2EC /* Packages */ = {
+			isa = PBXGroup;
+			children = (
+				06C3BC9C2B1B3BC90040A2EC /* Presentation */,
+				06C3BC9B2B1B3BB20040A2EC /* Domain */,
+				06C3BC9A2B1B3B9E0040A2EC /* Data */,
+			);
+			path = Packages;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
