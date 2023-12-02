@@ -1,0 +1,10 @@
+//
+//  Config.xcconfig
+//  PixaBay
+//
+//  Created by Giorgi Kratsashvili on 12/2/23.
+//
+
+API_SCHEME = https
+API_HOST = pixabay.com
+API_PATH = /api

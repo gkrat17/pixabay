@@ -55,6 +55,7 @@
 		06C3BC9A2B1B3B9E0040A2EC /* Data */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = Data; sourceTree = "<group>"; };
 		06C3BC9B2B1B3BB20040A2EC /* Domain */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = Domain; sourceTree = "<group>"; };
 		06C3BC9C2B1B3BC90040A2EC /* Presentation */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = Presentation; sourceTree = "<group>"; };
+		06C3BCA72B1B59440040A2EC /* Config.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Config.xcconfig; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -88,6 +89,7 @@
 		06C3BC592B1B39410040A2EC = {
 			isa = PBXGroup;
 			children = (
+				06C3BCA62B1B569F0040A2EC /* Config */,
 				06C3BC992B1B3B6D0040A2EC /* Packages */,
 				06C3BC642B1B39410040A2EC /* PixaBay */,
 				06C3BC7B2B1B39420040A2EC /* PixaBayTests */,
@@ -145,6 +147,14 @@
 				06C3BC9A2B1B3B9E0040A2EC /* Data */,
 			);
 			path = Packages;
+			sourceTree = "<group>";
+		};
+		06C3BCA62B1B569F0040A2EC /* Config */ = {
+			isa = PBXGroup;
+			children = (
+				06C3BCA72B1B59440040A2EC /* Config.xcconfig */,
+			);
+			path = Config;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -348,6 +358,7 @@
 /* Begin XCBuildConfiguration section */
 		06C3BC8A2B1B39420040A2EC /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 06C3BCA72B1B59440040A2EC /* Config.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
@@ -411,6 +422,7 @@
 		};
 		06C3BC8B2B1B39420040A2EC /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 06C3BCA72B1B59440040A2EC /* Config.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
