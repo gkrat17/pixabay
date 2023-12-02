@@ -15,10 +15,10 @@ public final class DefaultHitRepo: HitRepo {
 
     public init() {}
 
-    public func fetch(page: Int) async throws -> HitListEntity {
+    public func fetch(with params: HitParamsEntity) async throws -> HitListEntity {
         let request: URLRequest = try builder
             .configure()
-            .append(query: ("page", "\(page)"))
+            .append(query: ("page", "\(params.page)"))
             .build()
         return try await service.request(with: request)
     }

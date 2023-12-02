@@ -5,5 +5,5 @@
 //
 
 public protocol HitRepo {
-    func fetch(page: Int) async throws -> HitListEntity
+    func fetch(with: HitParamsEntity) async throws -> HitListEntity
 }
