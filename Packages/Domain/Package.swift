@@ -11,11 +11,13 @@ let package = Package(
             name: "Domain",
             targets: ["Domain"]),
     ],
+    dependencies: [.package(url: "https://github.com/codalasolutions/swift-di.git", branch: "main")],
     targets: [
         // Targets are the basic building blocks of a package, defining a module or a test suite.
         // Targets can depend on other targets in this package and products from dependencies.
         .target(
-            name: "Domain"),
+            name: "Domain",
+            dependencies: [.product(name: "DI", package: "swift-di")]),
         .testTarget(
             name: "DomainTests",
             dependencies: ["Domain"]),

@@ -1,0 +1,23 @@
+{
+  "pins" : [
+    {
+      "identity" : "swift-di",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/codalasolutions/swift-di.git",
+      "state" : {
+        "branch" : "main",
+        "revision" : "15d51864f96eb913da79a79cc96b5b2f0c2431e9"
+      }
+    },
+    {
+      "identity" : "swift-network",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/codalasolutions/swift-network.git",
+      "state" : {
+        "branch" : "main",
+        "revision" : "084036c20b733f21278df3d58111e4f5b446b58d"
+      }
+    }
+  ],
+  "version" : 2
+}

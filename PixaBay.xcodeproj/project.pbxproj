@@ -16,6 +16,8 @@
 		06C3BC7D2B1B39420040A2EC /* PixaBayTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06C3BC7C2B1B39420040A2EC /* PixaBayTests.swift */; };
 		06C3BC872B1B39420040A2EC /* PixaBayUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06C3BC862B1B39420040A2EC /* PixaBayUITests.swift */; };
 		06C3BC892B1B39420040A2EC /* PixaBayUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06C3BC882B1B39420040A2EC /* PixaBayUITestsLaunchTests.swift */; };
+		06C3BC9F2B1B3CD90040A2EC /* DI in Frameworks */ = {isa = PBXBuildFile; productRef = 06C3BC9E2B1B3CD90040A2EC /* DI */; };
+		06C3BCA22B1B4C750040A2EC /* Network in Frameworks */ = {isa = PBXBuildFile; productRef = 06C3BCA12B1B4C750040A2EC /* Network */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -59,6 +61,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				06C3BC9F2B1B3CD90040A2EC /* DI in Frameworks */,
+				06C3BCA22B1B4C750040A2EC /* Network in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -157,6 +161,10 @@
 			dependencies = (
 			);
 			name = PixaBay;
+			packageProductDependencies = (
+				06C3BC9E2B1B3CD90040A2EC /* DI */,
+				06C3BCA12B1B4C750040A2EC /* Network */,
+			);
 			productName = PixaBay;
 			productReference = 06C3BC622B1B39410040A2EC /* PixaBay.app */;
 			productType = "com.apple.product-type.application";
@@ -229,6 +237,10 @@
 				Base,
 			);
 			mainGroup = 06C3BC592B1B39410040A2EC;
+			packageReferences = (
+				06C3BC9D2B1B3CD90040A2EC /* XCRemoteSwiftPackageReference "swift-di" */,
+				06C3BCA02B1B4C750040A2EC /* XCRemoteSwiftPackageReference "swift-network" */,
+			);
 			productRefGroup = 06C3BC632B1B39410040A2EC /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -621,6 +633,38 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		06C3BC9D2B1B3CD90040A2EC /* XCRemoteSwiftPackageReference "swift-di" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/codalasolutions/swift-di.git";
+			requirement = {
+				branch = main;
+				kind = branch;
+			};
+		};
+		06C3BCA02B1B4C750040A2EC /* XCRemoteSwiftPackageReference "swift-network" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/codalasolutions/swift-network.git";
+			requirement = {
+				branch = main;
+				kind = branch;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		06C3BC9E2B1B3CD90040A2EC /* DI */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 06C3BC9D2B1B3CD90040A2EC /* XCRemoteSwiftPackageReference "swift-di" */;
+			productName = DI;
+		};
+		06C3BCA12B1B4C750040A2EC /* Network */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 06C3BCA02B1B4C750040A2EC /* XCRemoteSwiftPackageReference "swift-network" */;
+			productName = Network;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 06C3BC5A2B1B39410040A2EC /* Project object */;
 }
