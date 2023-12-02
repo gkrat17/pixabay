@@ -19,6 +19,9 @@
 		06C3BC9F2B1B3CD90040A2EC /* DI in Frameworks */ = {isa = PBXBuildFile; productRef = 06C3BC9E2B1B3CD90040A2EC /* DI */; };
 		06C3BCA22B1B4C750040A2EC /* Network in Frameworks */ = {isa = PBXBuildFile; productRef = 06C3BCA12B1B4C750040A2EC /* Network */; };
 		06C3BCA52B1B53F40040A2EC /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = 06C3BCA42B1B53F40040A2EC /* Kingfisher */; };
+		06C3BCAA2B1B674B0040A2EC /* Data in Frameworks */ = {isa = PBXBuildFile; productRef = 06C3BCA92B1B674B0040A2EC /* Data */; };
+		06C3BCAC2B1B674E0040A2EC /* Domain in Frameworks */ = {isa = PBXBuildFile; productRef = 06C3BCAB2B1B674E0040A2EC /* Domain */; };
+		06C3BCAE2B1B67560040A2EC /* Presentation in Frameworks */ = {isa = PBXBuildFile; productRef = 06C3BCAD2B1B67560040A2EC /* Presentation */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -63,8 +66,11 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				06C3BCAC2B1B674E0040A2EC /* Domain in Frameworks */,
 				06C3BCA52B1B53F40040A2EC /* Kingfisher in Frameworks */,
 				06C3BC9F2B1B3CD90040A2EC /* DI in Frameworks */,
+				06C3BCAA2B1B674B0040A2EC /* Data in Frameworks */,
+				06C3BCAE2B1B67560040A2EC /* Presentation in Frameworks */,
 				06C3BCA22B1B4C750040A2EC /* Network in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -95,6 +101,7 @@
 				06C3BC7B2B1B39420040A2EC /* PixaBayTests */,
 				06C3BC852B1B39420040A2EC /* PixaBayUITests */,
 				06C3BC632B1B39410040A2EC /* Products */,
+				06C3BCA82B1B674B0040A2EC /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -157,6 +164,13 @@
 			path = Config;
 			sourceTree = "<group>";
 		};
+		06C3BCA82B1B674B0040A2EC /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -177,6 +191,9 @@
 				06C3BC9E2B1B3CD90040A2EC /* DI */,
 				06C3BCA12B1B4C750040A2EC /* Network */,
 				06C3BCA42B1B53F40040A2EC /* Kingfisher */,
+				06C3BCA92B1B674B0040A2EC /* Data */,
+				06C3BCAB2B1B674E0040A2EC /* Domain */,
+				06C3BCAD2B1B67560040A2EC /* Presentation */,
 			);
 			productName = PixaBay;
 			productReference = 06C3BC622B1B39410040A2EC /* PixaBay.app */;
@@ -692,6 +709,18 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 06C3BCA32B1B53F40040A2EC /* XCRemoteSwiftPackageReference "Kingfisher" */;
 			productName = Kingfisher;
+		};
+		06C3BCA92B1B674B0040A2EC /* Data */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = Data;
+		};
+		06C3BCAB2B1B674E0040A2EC /* Domain */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = Domain;
+		};
+		06C3BCAD2B1B67560040A2EC /* Presentation */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = Presentation;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

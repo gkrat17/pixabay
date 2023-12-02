@@ -7,4 +7,5 @@
 
 API_SCHEME = https
 API_HOST = pixabay.com
-API_PATH = /api
+API_PATH = /api/
+API_KEY = 41028216-018f7d2f0b2ae4eb0f74df9f0
