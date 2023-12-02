@@ -2,3 +2,4 @@
 // https://docs.swift.org/swift-book
 import DI
 import Domain
+import Kingfisher

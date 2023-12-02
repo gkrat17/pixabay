@@ -13,7 +13,8 @@ let package = Package(
     ],
     dependencies: [
         .package(path: "../Domain"),
-        .package(url: "https://github.com/codalasolutions/swift-di.git", branch: "main")
+        .package(url: "https://github.com/codalasolutions/swift-di.git", branch: "main"),
+        .package(url: "https://github.com/onevcat/Kingfisher.git", .upToNextMajor(from: "7.10.0"))
     ],
     targets: [
         // Targets are the basic building blocks of a package, defining a module or a test suite.
@@ -22,7 +23,8 @@ let package = Package(
             name: "Presentation",
             dependencies: [
                 "Domain",
-                .product(name: "DI", package: "swift-di")
+                .product(name: "DI", package: "swift-di"),
+                .product(name: "Kingfisher", package: "Kingfisher")
             ]),
         .testTarget(
             name: "PresentationTests",
