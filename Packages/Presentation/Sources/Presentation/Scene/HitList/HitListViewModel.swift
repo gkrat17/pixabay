@@ -15,8 +15,6 @@ import Domain
     private var nextPageIndex = 1
     /* Deps */
     @Inject(container: .usecases) private var usecase: HitUsecase
-    /* Misc */
-    private var cancellable: AnyCancellable?
 
     nonisolated init() {}
 }
