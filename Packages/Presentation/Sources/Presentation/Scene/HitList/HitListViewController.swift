@@ -14,6 +14,7 @@ class HitListViewController: UIViewController {
     }
 
     var dataSource: UICollectionViewDiffableDataSource<Section, String>! = nil
+    var snapshot = NSDiffableDataSourceSnapshot<Section, String>()
     var collectionView: UICollectionView! = nil
 
     @Inject(container: .viewModels) private var viewModel: HitListViewModel
@@ -21,13 +22,13 @@ class HitListViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        viewModel.$hits
+        snapshot.appendSections([.main])
+
+        viewModel.$latestHitPage
+            .receive(on: DispatchQueue.main)
             .sink { [weak self] in
                 guard let self, case .loaded(let list) = $0 else { return }
-                var snapshot = NSDiffableDataSourceSnapshot<Section, String>()
-                snapshot.appendSections([.main])
-                snapshot.appendItems(list.map { $0.user + UUID().uuidString })
+                snapshot.appendItems(list.map { $0.user + UUID().uuidString.suffix(5).description })
                 dataSource.apply(snapshot, animatingDifferences: false)
             }
             .store(in: &cancellables)
@@ -35,24 +36,27 @@ class HitListViewController: UIViewController {
         navigationItem.title = "Inset Items Grid"
         configureHierarchy()
         configureDataSource()
-    
-        viewModel.fetch()
+
+        viewModel.viewDidLoad()
     }
 }
 
 extension HitListViewController {
     func createLayout() -> UICollectionViewLayout {
-        let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(0.2),
+        let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0),
                                              heightDimension: .fractionalHeight(1.0))
         let item = NSCollectionLayoutItem(layoutSize: itemSize)
-        item.contentInsets = NSDirectionalEdgeInsets(top: 5, leading: 5, bottom: 5, trailing: 5)
 
         let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0),
-                                              heightDimension: .fractionalWidth(0.2))
-        let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize,
-                                                         subitems: [item])
+                                              heightDimension: .absolute(54))
+        let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitem: item, count: 2)
+        let spacing = CGFloat(10)
+        group.interItemSpacing = .fixed(spacing)
 
         let section = NSCollectionLayoutSection(group: group)
+        section.interGroupSpacing = spacing
+        section.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 10, bottom: 0, trailing: 10)
+
         let layout = UICollectionViewCompositionalLayout(section: section)
         return layout
     }
@@ -64,6 +68,7 @@ extension HitListViewController {
         collectionView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         collectionView.backgroundColor = .systemBackground
         collectionView.register(TextCell.self, forCellWithReuseIdentifier: TextCell.reuseIdentifier)
+        collectionView.delegate = self
         view.addSubview(collectionView)
     }
     func configureDataSource() {
@@ -87,6 +92,12 @@ extension HitListViewController {
             // Return the cell.
             return cell
         }
+    }
+}
+
+extension HitListViewController: UICollectionViewDelegate {
+    func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
+        viewModel.cellWillDisplay(at: indexPath.row)
     }
 }
 

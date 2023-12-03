@@ -10,16 +10,42 @@ import Domain
 
 @MainActor final class HitListViewModel: ObservableObject {
     /* State */
-    @Published private(set) var hits: Loadable<[HitEntity]> = .notRequested
+    @Published private(set) var latestHitPage: Loadable<[HitEntity]> = .notRequested
+    private var allHits = [HitEntity]()
+    private var nextPageIndex = 1
     /* Deps */
     @Inject(container: .usecases) private var usecase: HitUsecase
+    /* Misc */
+    private var cancellable: AnyCancellable?
 
     nonisolated init() {}
+}
 
-    func fetch() {
+extension HitListViewModel {
+    func viewDidLoad() {
+        fetchNextPage()
+    }
+
+    func cellWillDisplay(at index: Int) {
+        if index == allHits.count - 1 {
+            fetchNextPage()
+        }
+    }
+}
+
+fileprivate extension HitListViewModel {
+    func fetchNextPage() {
+        if case .isLoading = latestHitPage { return }
+        latestHitPage = .isLoading
         Task {
-            let result = try await usecase.fetch(with: .init(page: 1))
-            hits = .loaded(result.hits)
+            do {
+                let result = try await usecase.fetch(with: .init(page: nextPageIndex))
+                nextPageIndex += 1
+                allHits.append(contentsOf: result.hits)
+                latestHitPage = .loaded(result.hits)
+            } catch {
+                latestHitPage = .failed(error)
+            }
         }
     }
 }

@@ -5,6 +5,10 @@
 //  Created by Giorgi Kratsashvili on 12/2/23.
 //
 
+import DI
+import Domain
+import Data
+import Presentation
 import UIKit
 
 @main
@@ -13,7 +17,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-        // Override point for customization after application launch.
+        Domain.configure(repos: .init {
+            Dependency { DefaultHitRepo() as HitRepo }
+        })
+        Presentation.configure(usecases: .init {
+            Dependency { DefaultHitUsecase() as HitUsecase }
+        })
         return true
     }
 
