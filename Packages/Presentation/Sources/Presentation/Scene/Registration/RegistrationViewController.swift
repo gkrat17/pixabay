@@ -23,7 +23,11 @@ final class RegistrationViewController: UIViewController {
     private let emailErrorLabel: UILabel = .error
     private let passwordErrorLabel: UILabel = .error
     private let ageErrorLabel: UILabel = .error
-    private lazy var registerButton: UIButton = .button(title: "Register", selector: #selector(registerTapped))
+    private lazy var registerButton: UIButton = {
+        let button: UIButton = .button(title: "Register")
+        button.addTarget(self, action: #selector(registerTapped), for: .touchUpInside)
+        return button
+    }()
 
     private var cancellables = Set<AnyCancellable>()
 

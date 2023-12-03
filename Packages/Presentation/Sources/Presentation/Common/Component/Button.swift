@@ -7,10 +7,9 @@
 import UIKit
 
 extension UIButton {
-    static func button(title: String, selector: Selector) -> UIButton {
+    static func button(title: String) -> UIButton {
         let button = UIButton(type: .system)
         button.setTitle(title, for: .normal)
-        button.addTarget(self, action: selector, for: .touchUpInside)
         return button
     }
 }

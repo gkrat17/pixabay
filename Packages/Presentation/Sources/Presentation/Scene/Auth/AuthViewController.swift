@@ -15,8 +15,16 @@ final class AuthViewController: UIViewController {
     private let passwordTextField: UITextField = .password
     private let emailErrorLabel: UILabel = .error
     private let passwordErrorLabel: UILabel = .error
-    private lazy var authButton: UIButton = .button(title: "Auth", selector: #selector(authTapped))
-    private lazy var registerButton: UIButton = .button(title: "Register", selector: #selector(registerTapped))
+    private lazy var authButton: UIButton = {
+        let button: UIButton = .button(title: "Login")
+        button.addTarget(self, action: #selector(authTapped), for: .touchUpInside)
+        return button
+    }()
+    private lazy var registerButton: UIButton = {
+        let button: UIButton = .button(title: "Register")
+        button.addTarget(self, action: #selector(registerTapped), for: .touchUpInside)
+        return button
+    }()
 
     private var cancellables = Set<AnyCancellable>()
 
