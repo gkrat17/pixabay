@@ -6,6 +6,10 @@
 
 import UIKit
 
+extension UITableViewCell {
+    static var reuseIdentifier: String { .init(describing: Self.self) }
+}
+
 extension UICollectionViewCell {
     static var reuseIdentifier: String { .init(describing: Self.self) }
 }

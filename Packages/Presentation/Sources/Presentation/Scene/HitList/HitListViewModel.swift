@@ -29,6 +29,10 @@ extension HitListViewModel {
             fetchNextPage()
         }
     }
+
+    func entity(at index: Int) -> HitEntity? {
+        if index < allHits.count { allHits[index] } else { nil }
+    }
 }
 
 fileprivate extension HitListViewModel {

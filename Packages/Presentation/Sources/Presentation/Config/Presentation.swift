@@ -13,6 +13,6 @@ public enum Presentation {
     }
 
     public static func initial() -> UIViewController {
-        HitListViewController()
+        UINavigationController(rootViewController: HitListViewController())
     }
 }

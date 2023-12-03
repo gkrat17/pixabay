@@ -44,7 +44,6 @@ fileprivate extension HitListViewController {
     func configureHierarchy() {
         collectionView = .init(frame: view.bounds, collectionViewLayout: createLayout())
         collectionView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-        collectionView.backgroundColor = .systemBackground
         collectionView.register(HitListItemView.self, forCellWithReuseIdentifier: HitListItemView.reuseIdentifier)
         collectionView.delegate = self
         view.addSubview(collectionView)
@@ -103,5 +102,12 @@ fileprivate extension HitListViewController {
 extension HitListViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
         viewModel.cellWillDisplay(at: indexPath.row)
+    }
+
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        guard let entity = viewModel.entity(at: indexPath.row) else { return }
+        let viewController = HitDetailsViewController()
+        viewController.configure(with: entity)
+        navigationController?.pushViewController(viewController, animated: true)
     }
 }
