@@ -9,5 +9,7 @@ import Domain
 public final class DefaultRegistrationRepo: RegistrationRepo {
     public init() {}
 
-    public func register(with: RegistrationParams) {}
+    public func register(with: RegistrationParams) async throws {
+        try await Task.sleep(nanoseconds: 1_000_000_000)
+    }
 }

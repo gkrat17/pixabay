@@ -9,5 +9,7 @@ import Domain
 public final class DefaultAuthRepo: AuthRepo {
     public init() {}
 
-    public func auth(with: AuthParams) {}
+    public func auth(with: AuthParams) async throws {
+        try await Task.sleep(nanoseconds: 1_000_000_000)
+    }
 }

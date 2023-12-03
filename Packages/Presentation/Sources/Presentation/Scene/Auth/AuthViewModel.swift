@@ -17,9 +17,9 @@ import Domain
     @Published private(set) var isEnabled = false
     @Published private(set) var loading = false
     /* Deps */
+    @Inject(container: .usecases) private var usecase: AuthUsecase
     @Inject(container: .validators) private var emailValidator: EmailValidator
     @Inject(container: .validators) private var passwordValidator: PasswordValidator
-    @Inject(container: .usecases) private var usecase: AuthUsecase
     @Inject(container: .coordinators) private var coordinator: AuthCoordinator
     /* Misc */
     private var cancellable: AnyCancellable?
@@ -55,6 +55,6 @@ extension AuthViewModel {
     }
 
     func register() {
-        coordinator.onRegistration()
+        coordinator.onRegister()
     }
 }

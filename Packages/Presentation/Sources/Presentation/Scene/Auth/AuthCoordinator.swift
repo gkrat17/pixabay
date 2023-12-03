@@ -9,7 +9,7 @@ import UIKit
 
 protocol AuthCoordinator {
     func start()
-    func onRegistration()
+    func onRegister()
     func onAuthSuccess()
 }
 
@@ -22,7 +22,7 @@ final class DefaultAuthCoordinator: AuthCoordinator {
         navigationController.pushViewController(AuthViewController(), animated: true)
     }
 
-    func onRegistration() {
+    func onRegister() {
         registrationCoordinator.start()
     }
 

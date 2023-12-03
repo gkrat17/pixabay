@@ -19,10 +19,10 @@ import Domain
     @Published private(set) var isEnabled = false
     @Published private(set) var loading = false
     /* Deps */
+    @Inject(container: .usecases) private var usecase: RegistrationUsecase
     @Inject(container: .validators) private var emailValidator: EmailValidator
     @Inject(container: .validators) private var passwordValidator: PasswordValidator
     @Inject(container: .validators) private var ageValidator: AgeValidator
-    @Inject(container: .usecases) private var usecase: RegistrationUsecase
     @Inject(container: .coordinators) private var coordinator: RegistrationCoordinator
     /* Misc */
     private var cancellable: AnyCancellable?
