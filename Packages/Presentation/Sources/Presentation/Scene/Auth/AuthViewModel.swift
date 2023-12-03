@@ -53,4 +53,8 @@ extension AuthViewModel {
             loading = false
         }
     }
+
+    func register() {
+        coordinator.onRegistration()
+    }
 }
