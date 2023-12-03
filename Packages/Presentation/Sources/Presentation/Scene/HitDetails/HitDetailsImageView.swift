@@ -29,6 +29,7 @@ extension HitDetailsImageView {
 
 fileprivate extension HitDetailsImageView {
     func configure() {
+        image.contentMode = .scaleAspectFill
         addSubview(image)
         image.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([

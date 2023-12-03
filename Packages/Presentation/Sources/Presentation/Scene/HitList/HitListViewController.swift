@@ -38,7 +38,8 @@ fileprivate extension HitListViewController {
     }
 
     func configureNavigation() {
-        navigationItem.title = "Hits"
+        navigationController?.navigationBar.prefersLargeTitles = true
+        title = "Hits"
     }
 
     func configureHierarchy() {
@@ -52,14 +53,11 @@ fileprivate extension HitListViewController {
     func configureDataSource() {
         dataSource = UICollectionViewDiffableDataSource<Section, HitEntity>(collectionView: collectionView) {
             (collectionView: UICollectionView, indexPath: IndexPath, entity: HitEntity) -> UICollectionViewCell? in
-
             guard let cell = collectionView.dequeueReusableCell(
                 withReuseIdentifier: HitListItemView.reuseIdentifier,
                 for: indexPath) as? HitListItemView
             else { fatalError() }
-
             cell.configure(with: entity)
-
             return cell
         }
     }

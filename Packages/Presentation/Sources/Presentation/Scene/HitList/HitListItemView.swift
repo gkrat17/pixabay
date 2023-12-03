@@ -30,7 +30,7 @@ extension HitListItemView {
         } else {
             image.image = nil
         }
-        label.text = entity.user
+        label.text = if let user = entity.user { " \(user) " } else { "" }
     }
 }
 
@@ -43,6 +43,9 @@ fileprivate extension HitListItemView {
     }
 
     func configureImage() {
+        image.layer.masksToBounds = true
+        image.layer.cornerRadius = 8
+        image.contentMode = .scaleAspectFill
         image.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
             image.topAnchor.constraint(equalTo: topAnchor),
@@ -53,6 +56,9 @@ fileprivate extension HitListItemView {
     }
 
     func configureLabel() {
+        label.layer.masksToBounds = true
+        label.layer.cornerRadius = 4
+        label.backgroundColor = .secondarySystemBackground
         label.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
             label.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -8),

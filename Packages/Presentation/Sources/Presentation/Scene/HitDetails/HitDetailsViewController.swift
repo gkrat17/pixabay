@@ -48,7 +48,8 @@ fileprivate extension HitDetailsViewController {
     }
 
     func configureNavigation() {
-        navigationItem.title = "Hit details"
+        navigationItem.largeTitleDisplayMode = .never
+        title = "Details"
     }
 
     func configureHierarchy() {
@@ -71,20 +72,22 @@ fileprivate extension HitDetailsViewController {
         dataSource = UITableViewDiffableDataSource<Section, Item>(tableView: tableView) {
             (tableView: UITableView, indexPath: IndexPath, item: Item) -> UITableViewCell? in
             switch item {
-            case .image(url: let url):
+            case .image(let url):
                 guard let cell = tableView.dequeueReusableCell(
                     withIdentifier: HitDetailsImageView.reuseIdentifier,
                     for: indexPath) as? HitDetailsImageView
                 else { fatalError() }
                 cell.configure(with: url)
                 return cell
-            case .info(title: let title, description: let description):
+            case .info(let title, let description):
                 let cell = tableView.dequeueReusableCell(
                     withIdentifier: UITableViewCell.reuseIdentifier,
                     for: indexPath)
                 var config = UIListContentConfiguration.cell()
                 config.text = "\(title): \(description)"
                 cell.contentConfiguration = config
+                cell.contentView.backgroundColor = .secondarySystemBackground
+                cell.selectionStyle = .none
                 return cell
             }
         }
