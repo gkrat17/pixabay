@@ -4,17 +4,18 @@
 //  Created by Giorgi Kratsashvili on 12/3/23.
 //
 
+import DI
 import UIKit
 import Combine
 
-final class AuthViewController: UIViewController, UITextFieldDelegate {
-    private var viewModel = AuthViewModel()
-    private var cancellables: Set<AnyCancellable> = []
+final class AuthViewController: UIViewController {
+    @Inject(container: .viewModels) private var viewModel: AuthViewModel
 
     private let emailTextField: UITextField = {
         let textField = UITextField()
         textField.placeholder = "Email"
         textField.borderStyle = .roundedRect
+        textField.keyboardType = .emailAddress
         return textField
     }()
 
@@ -38,40 +39,49 @@ final class AuthViewController: UIViewController, UITextFieldDelegate {
         return label
     }()
 
-    private lazy var loginButton: UIButton = {
+    private lazy var authButton: UIButton = {
         let button = UIButton(type: .system)
         button.setTitle("Login", for: .normal)
-        button.addTarget(self, action: #selector(loginButtonTapped), for: .touchUpInside)
+        button.addTarget(self, action: #selector(authTapped), for: .touchUpInside)
         return button
     }()
 
+    private var cancellables = Set<AnyCancellable>()
+
     override func viewDidLoad() {
         super.viewDidLoad()
-        setupUI()
-        setupBindings()
-        viewModel.configure()
+        configure()
+    }
+}
 
-        emailTextField.delegate = self
-        passwordTextField.delegate = self
+fileprivate extension AuthViewController {
+    func configure() {
+        viewModel.configure()
+        configureNavigation()
+        configureHierarchy()
+        configureDelegates()
+        bind()
     }
 
-    private func setupUI() {
-        view.backgroundColor = .white
+    func configureNavigation() {
+        navigationController?.navigationBar.prefersLargeTitles = true
+        title = "Login"
+    }
 
+    private func configureHierarchy() {
+        view.backgroundColor = .systemBackground
         let stackView = UIStackView(arrangedSubviews: [
             emailTextField,
             emailErrorLabel,
             passwordTextField,
             passwordErrorLabel,
-            loginButton
+            authButton
         ])
         stackView.axis = .vertical
         stackView.spacing = 10
         stackView.distribution = .fill
         stackView.alignment = .fill
-
         view.addSubview(stackView)
-
         stackView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
             stackView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
@@ -81,39 +91,42 @@ final class AuthViewController: UIViewController, UITextFieldDelegate {
         ])
     }
 
-    private func setupBindings() {
+    func bind() {
         viewModel.$emailError
-            .sink { [weak self] error in
-                self?.emailErrorLabel.text = error
-            }
-            .store(in: &cancellables)
+            .sink { [weak self] in
+                self?.emailErrorLabel.text = $0
+            }.store(in: &cancellables)
 
         viewModel.$passwordError
-            .sink { [weak self] error in
-                self?.passwordErrorLabel.text = error
-            }
-            .store(in: &cancellables)
+            .sink { [weak self] in
+                self?.passwordErrorLabel.text = $0
+            }.store(in: &cancellables)
 
         viewModel.$isEnabled
-            .sink { [weak self] isEnabled in
-                self?.loginButton.isEnabled = isEnabled
-            }
-            .store(in: &cancellables)
+            .sink { [weak self] in
+                self?.authButton.isEnabled = $0
+            }.store(in: &cancellables)
     }
 
-    @objc private func loginButtonTapped() {
+    func configureDelegates() {
+        emailTextField.delegate = self
+        passwordTextField.delegate = self
+    }
+
+    @objc func authTapped() {
         viewModel.auth()
     }
+}
 
-    // MARK: - UITextFieldDelegate
-
+extension AuthViewController: UITextFieldDelegate {
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        let curr = textField.text ?? .init()
+        let next = (curr as NSString).replacingCharacters(in: range, with: string)
         if textField == emailTextField {
-            viewModel.email = (textField.text as NSString?)?.replacingCharacters(in: range, with: string) ?? ""
+            viewModel.email = next
         } else if textField == passwordTextField {
-            viewModel.password = (textField.text as NSString?)?.replacingCharacters(in: range, with: string) ?? ""
+            viewModel.password = next
         }
-
         return true
     }
 }

@@ -38,7 +38,6 @@ fileprivate extension HitListViewController {
     }
 
     func configureNavigation() {
-        navigationController?.navigationBar.prefersLargeTitles = true
         title = "Hits"
     }
 
