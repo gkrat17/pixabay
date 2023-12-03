@@ -7,6 +7,7 @@
 import Combine
 import DI
 import Domain
+import Kingfisher
 import UIKit
 
 final class HitDetailsViewController: UIViewController {
@@ -53,7 +54,9 @@ fileprivate extension HitDetailsViewController {
     func configureHierarchy() {
         tableView = .init(frame: .zero, style: .insetGrouped)
         tableView.backgroundColor = .systemBackground
+        tableView.register(HitDetailsImageView.self, forCellReuseIdentifier: HitDetailsImageView.reuseIdentifier)
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: UITableViewCell.reuseIdentifier)
+        tableView.delegate = self
         view.addSubview(tableView)
         tableView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
@@ -67,19 +70,23 @@ fileprivate extension HitDetailsViewController {
     func configureDataSource() {
         dataSource = UITableViewDiffableDataSource<Section, Item>(tableView: tableView) {
             (tableView: UITableView, indexPath: IndexPath, item: Item) -> UITableViewCell? in
-
-            let cell = tableView.dequeueReusableCell(
-                withIdentifier: UITableViewCell.reuseIdentifier,
-                for: indexPath)
-
             switch item {
             case .image(url: let url):
-                cell.textLabel?.text = "URL: \(url)"
+                guard let cell = tableView.dequeueReusableCell(
+                    withIdentifier: HitDetailsImageView.reuseIdentifier,
+                    for: indexPath) as? HitDetailsImageView
+                else { fatalError() }
+                cell.configure(with: url)
+                return cell
             case .info(title: let title, description: let description):
-                cell.textLabel?.text = "\(title): \(description)"
+                let cell = tableView.dequeueReusableCell(
+                    withIdentifier: UITableViewCell.reuseIdentifier,
+                    for: indexPath)
+                var config = UIListContentConfiguration.cell()
+                config.text = "\(title): \(description)"
+                cell.contentConfiguration = config
+                return cell
             }
-
-            return cell
         }
     }
 
@@ -98,7 +105,7 @@ fileprivate extension HitDetailsViewController {
     }
 
     func mainSectionItems(_ entity: HitEntity) -> [Item] {
-        [image(url: entity.pageURL ?? entity.previewURL),
+        [image(url: entity.largeImageURL ?? entity.previewURL),
          info(title: "Size", description: entity.imageSize),
          info(title: "Type", description: entity.type),
          info(title: "Tags", description: entity.tags)].compactMap { $0 }
@@ -123,9 +130,19 @@ fileprivate extension HitDetailsViewController {
 
     func info(title: String, description: CustomStringConvertible?) -> Item? {
         if let description = description {
-            .info(title: "Size", description: description.description)
+            .info(title: title, description: description.description)
         } else {
             nil
+        }
+    }
+}
+
+extension HitDetailsViewController: UITableViewDelegate {
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        if indexPath.section == .zero, indexPath.row == .zero {
+            256
+        } else {
+            tableView.rowHeight
         }
     }
 }

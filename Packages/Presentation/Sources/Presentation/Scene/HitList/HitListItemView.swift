@@ -8,7 +8,7 @@ import Domain
 import Kingfisher
 import UIKit
 
-class HitListItemView: UICollectionViewCell {
+final class HitListItemView: UICollectionViewCell {
     private let image = UIImageView()
     private let label = UILabel()
 

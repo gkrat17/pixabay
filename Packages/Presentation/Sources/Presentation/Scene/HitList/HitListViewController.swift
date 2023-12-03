@@ -56,7 +56,7 @@ fileprivate extension HitListViewController {
             guard let cell = collectionView.dequeueReusableCell(
                 withReuseIdentifier: HitListItemView.reuseIdentifier,
                 for: indexPath) as? HitListItemView
-                else { fatalError("Cannot create new cell") }
+            else { fatalError() }
 
             cell.configure(with: entity)
 
@@ -86,7 +86,7 @@ fileprivate extension HitListViewController {
 
         let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0),
                                               heightDimension: .fractionalWidth(0.5))
-        let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitem: item, count: 2)
+        let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, repeatingSubitem: item, count: 2)
         let spacing = CGFloat(10)
         group.interItemSpacing = .fixed(spacing)
 
