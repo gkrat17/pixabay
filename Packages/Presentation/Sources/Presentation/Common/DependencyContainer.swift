@@ -14,6 +14,7 @@ extension DependencyContainer {
 extension DependencyContainer {
     static var viewModels = DependencyContainer {
         Dependency(instanceType: .new) { AuthViewModel() }
+        Dependency(instanceType: .new) { RegistrationViewModel() }
         Dependency(instanceType: .new) { HitListViewModel() }
         Dependency(instanceType: .new) { HitDetailsViewModel() }
     }

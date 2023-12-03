@@ -1,15 +1,15 @@
 //
-//  AuthViewController.swift
+//  RegistrationViewController.swift
 //
-//  Created by Giorgi Kratsashvili on 12/3/23.
+//  Created by Giorgi Kratsashvili on 12/4/23.
 //
 
 import DI
 import UIKit
 import Combine
 
-final class AuthViewController: UIViewController {
-    @Inject(container: .viewModels) private var viewModel: AuthViewModel
+final class RegistrationViewController: UIViewController {
+    @Inject(container: .viewModels) private var viewModel: RegistrationViewModel
 
     private let emailTextField: UITextField = {
         let textField = UITextField()
@@ -23,7 +23,14 @@ final class AuthViewController: UIViewController {
         let textField = UITextField()
         textField.placeholder = "Password"
         textField.borderStyle = .roundedRect
-        textField.isSecureTextEntry = true
+        return textField
+    }()
+
+    private let ageTextField: UITextField = {
+        let textField = UITextField()
+        textField.placeholder = "Age"
+        textField.borderStyle = .roundedRect
+        textField.keyboardType = .decimalPad
         return textField
     }()
 
@@ -39,11 +46,10 @@ final class AuthViewController: UIViewController {
         return label
     }()
 
-    private lazy var authButton: UIButton = {
-        let button = UIButton(type: .system)
-        button.setTitle("Login", for: .normal)
-        button.addTarget(self, action: #selector(authTapped), for: .touchUpInside)
-        return button
+    private let ageErrorLabel: UILabel = {
+        let label = UILabel()
+        label.textColor = .red
+        return label
     }()
 
     private lazy var registerButton: UIButton = {
@@ -61,7 +67,7 @@ final class AuthViewController: UIViewController {
     }
 }
 
-fileprivate extension AuthViewController {
+fileprivate extension RegistrationViewController {
     func configure() {
         viewModel.configure()
         configureNavigation()
@@ -71,8 +77,7 @@ fileprivate extension AuthViewController {
     }
 
     func configureNavigation() {
-        navigationController?.navigationBar.prefersLargeTitles = true
-        title = "Login"
+        title = "Registration"
     }
 
     private func configureHierarchy() {
@@ -82,7 +87,8 @@ fileprivate extension AuthViewController {
             emailErrorLabel,
             passwordTextField,
             passwordErrorLabel,
-            authButton,
+            ageTextField,
+            ageErrorLabel,
             registerButton
         ])
         stackView.axis = .vertical
@@ -110,28 +116,29 @@ fileprivate extension AuthViewController {
                 self?.passwordErrorLabel.text = $0
             }.store(in: &cancellables)
 
+        viewModel.$ageError
+            .sink { [weak self] in
+                self?.ageErrorLabel.text = $0
+            }.store(in: &cancellables)
+
         viewModel.$isEnabled
             .sink { [weak self] in
-                self?.authButton.isEnabled = $0
+                self?.registerButton.isEnabled = $0
             }.store(in: &cancellables)
     }
 
     func configureDelegates() {
         emailTextField.delegate = self
         passwordTextField.delegate = self
-    }
-
-    @objc func authTapped() {
-        viewModel.auth()
+        ageTextField.delegate = self
     }
 
     @objc private func registerTapped() {
-        let viewController = RegistrationViewController()
-        navigationController?.pushViewController(viewController, animated: true)
+        viewModel.register()
     }
 }
 
-extension AuthViewController: UITextFieldDelegate {
+extension RegistrationViewController: UITextFieldDelegate {
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
         let curr = textField.text ?? .init()
         let next = (curr as NSString).replacingCharacters(in: range, with: string)
@@ -139,6 +146,8 @@ extension AuthViewController: UITextFieldDelegate {
             viewModel.email = next
         } else if textField == passwordTextField {
             viewModel.password = next
+        } else if textField == ageTextField {
+            viewModel.age = next
         }
         return true
     }

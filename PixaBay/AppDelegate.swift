@@ -16,10 +16,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         Domain.configure(repos: .init {
             Dependency { DefaultAuthRepo() as AuthRepo }
+            Dependency { DefaultRegistrationRepo() as RegistrationRepo }
             Dependency { DefaultHitRepo() as HitRepo }
         })
         Presentation.configure(usecases: .init {
             Dependency { DefaultAuthUsecase() as AuthUsecase }
+            Dependency { DefaultRegistrationUsecase() as RegistrationUsecase }
             Dependency { DefaultHitUsecase() as HitUsecase }
         })
         Presentation.configure(validators: .init {
