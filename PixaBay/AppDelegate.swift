@@ -18,10 +18,17 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         Domain.configure(repos: .init {
+            Dependency { DefaultAuthRepo() as AuthRepo }
             Dependency { DefaultHitRepo() as HitRepo }
         })
         Presentation.configure(usecases: .init {
+            Dependency { DefaultAuthUsecase() as AuthUsecase }
             Dependency { DefaultHitUsecase() as HitUsecase }
+        })
+        Presentation.configure(validators: .init {
+            Dependency { DefaultAgeValidator() as AgeValidator }
+            Dependency { DefaultEmailValidator() as EmailValidator }
+            Dependency { DefaultPasswordValidator() as PasswordValidator }
         })
         return true
     }

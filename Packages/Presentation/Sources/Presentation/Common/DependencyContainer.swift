@@ -8,6 +8,7 @@ import DI
 
 extension DependencyContainer {
     static var usecases = DependencyContainer {}
+    static var validators = DependencyContainer {}
 }
 
 extension DependencyContainer {
