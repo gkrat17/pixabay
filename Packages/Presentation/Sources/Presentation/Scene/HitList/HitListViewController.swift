@@ -102,9 +102,6 @@ extension HitListViewController: UICollectionViewDelegate {
     }
 
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        guard let entity = viewModel.entity(at: indexPath.row) else { return }
-        let viewController = HitDetailsViewController()
-        viewController.configure(with: entity)
-        navigationController?.pushViewController(viewController, animated: true)
+        viewModel.didSelectItemAt(at: indexPath.row)
     }
 }

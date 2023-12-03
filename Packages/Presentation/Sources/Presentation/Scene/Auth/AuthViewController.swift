@@ -10,6 +10,7 @@ import Combine
 
 final class AuthViewController: UIViewController {
     @Inject(container: .viewModels) private var viewModel: AuthViewModel
+    @Inject(container: .coordinators) private var coordinator: AuthCoordinator
 
     private let emailTextField: UITextField = {
         let textField = UITextField()
@@ -126,8 +127,7 @@ fileprivate extension AuthViewController {
     }
 
     @objc private func registerTapped() {
-        let viewController = RegistrationViewController()
-        navigationController?.pushViewController(viewController, animated: true)
+        coordinator.onRegistration()
     }
 }
 

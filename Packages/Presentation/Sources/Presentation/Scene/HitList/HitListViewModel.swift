@@ -15,6 +15,7 @@ import Domain
     private var nextPageIndex = 1
     /* Deps */
     @Inject(container: .usecases) private var usecase: HitUsecase
+    @Inject(container: .coordinators) private var coordinator: HitListCoordinator
 
     nonisolated init() {}
 }
@@ -30,8 +31,10 @@ extension HitListViewModel {
         }
     }
 
-    func entity(at index: Int) -> HitEntity? {
-        if index < allHits.count { allHits[index] } else { nil }
+    func didSelectItemAt(at index: Int) {
+        guard index < allHits.count else { return }
+        let entity = allHits[index]
+        coordinator.onHitEntity(entity: entity)
     }
 }
 

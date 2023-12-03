@@ -5,6 +5,7 @@
 //
 
 import DI
+import UIKit
 
 extension DependencyContainer {
     static var usecases = DependencyContainer {}
@@ -17,5 +18,14 @@ extension DependencyContainer {
         Dependency(instanceType: .new) { RegistrationViewModel() }
         Dependency(instanceType: .new) { HitListViewModel() }
         Dependency(instanceType: .new) { HitDetailsViewModel() }
+    }
+    static var coordinators = DependencyContainer {
+        Dependency { DefaultAuthCoordinator() as AuthCoordinator }
+        Dependency { DefaultRegistrationCoordinator() as RegistrationCoordinator }
+        Dependency { DefaultHitListCoordinator() as HitListCoordinator }
+        Dependency { DefaultHitDetailsCoordinator() as HitDetailsCoordinator }
+    }
+    static var `default` = DependencyContainer {
+        Dependency { UINavigationController() }
     }
 }

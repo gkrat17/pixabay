@@ -23,6 +23,7 @@ import Domain
     @Inject(container: .validators) private var passwordValidator: PasswordValidator
     @Inject(container: .validators) private var ageValidator: AgeValidator
     @Inject(container: .usecases) private var usecase: RegistrationUsecase
+    @Inject(container: .coordinators) private var coordinator: RegistrationCoordinator
     /* Misc */
     private var cancellable: AnyCancellable?
 
@@ -49,6 +50,7 @@ extension RegistrationViewModel {
         Task {
             do {
                 try await usecase.register(with: .init(email: email, password: password, age: age))
+                coordinator.onRegistrationSuccess()
             } catch {
                 // handle error
             }

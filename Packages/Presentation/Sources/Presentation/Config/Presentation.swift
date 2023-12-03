@@ -17,6 +17,13 @@ public enum Presentation {
     }
 
     public static func initial() -> UIViewController {
-        UINavigationController(rootViewController: AuthViewController())
+        defer {
+            @Inject(container: .coordinators)
+            var controller: AuthCoordinator
+            controller.start()
+        }
+        @Inject(container: .default)
+        var controller: UINavigationController
+        return controller
     }
 }

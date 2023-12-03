@@ -20,6 +20,7 @@ import Domain
     @Inject(container: .validators) private var emailValidator: EmailValidator
     @Inject(container: .validators) private var passwordValidator: PasswordValidator
     @Inject(container: .usecases) private var usecase: AuthUsecase
+    @Inject(container: .coordinators) private var coordinator: AuthCoordinator
     /* Misc */
     private var cancellable: AnyCancellable?
 
@@ -33,7 +34,9 @@ extension AuthViewModel {
                 guard let self else { return }
                 emailError = if email.isEmpty { "" } else { emailValidator.validationError(input: email) ?? "" }
                 passwordError = if password.isEmpty { "" } else { passwordValidator.validationError(input: password) ?? "" }
-                isEnabled = !loading && !email.isEmpty && !password.isEmpty && emailError.isEmpty && passwordError.isEmpty
+                isEnabled = !loading &&
+                            !email.isEmpty && !password.isEmpty &&
+                            emailError.isEmpty && passwordError.isEmpty
             }
     }
 
@@ -43,6 +46,7 @@ extension AuthViewModel {
         Task {
             do {
                 try await usecase.auth(with: .init(email: email, password: password))
+                coordinator.onAuthSuccess()
             } catch {
                 // handle error
             }
