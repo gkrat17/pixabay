@@ -11,20 +11,8 @@ import Combine
 final class RegistrationViewController: UIViewController {
     @Inject(container: .viewModels) private var viewModel: RegistrationViewModel
 
-    private let emailTextField: UITextField = {
-        let textField = UITextField()
-        textField.placeholder = "Email"
-        textField.borderStyle = .roundedRect
-        textField.keyboardType = .emailAddress
-        return textField
-    }()
-
-    private let passwordTextField: UITextField = {
-        let textField = UITextField()
-        textField.placeholder = "Password"
-        textField.borderStyle = .roundedRect
-        return textField
-    }()
+    private let emailTextField: UITextField = .email
+    private let passwordTextField: UITextField = .password
 
     private let ageTextField: UITextField = {
         let textField = UITextField()
@@ -34,23 +22,9 @@ final class RegistrationViewController: UIViewController {
         return textField
     }()
 
-    private let emailErrorLabel: UILabel = {
-        let label = UILabel()
-        label.textColor = .red
-        return label
-    }()
-
-    private let passwordErrorLabel: UILabel = {
-        let label = UILabel()
-        label.textColor = .red
-        return label
-    }()
-
-    private let ageErrorLabel: UILabel = {
-        let label = UILabel()
-        label.textColor = .red
-        return label
-    }()
+    private let emailErrorLabel: UILabel = .error
+    private let passwordErrorLabel: UILabel = .error
+    private let ageErrorLabel: UILabel = .error
 
     private lazy var registerButton: UIButton = {
         let button = UIButton(type: .system)

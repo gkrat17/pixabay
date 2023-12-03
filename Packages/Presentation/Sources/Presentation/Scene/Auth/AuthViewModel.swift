@@ -32,7 +32,7 @@ extension AuthViewModel {
         cancellable = Publishers.CombineLatest3($email, $password, $loading)
             .sink { [weak self] email, password, loading in
                 guard let self else { return }
-                emailError = if email.isEmpty { "" } else { emailValidator.validationError(input: email) ?? "" }
+                emailError    = if email.isEmpty    { "" } else { emailValidator.validationError(input: email) ?? "" }
                 passwordError = if password.isEmpty { "" } else { passwordValidator.validationError(input: password) ?? "" }
                 isEnabled = !loading &&
                             !email.isEmpty && !password.isEmpty &&

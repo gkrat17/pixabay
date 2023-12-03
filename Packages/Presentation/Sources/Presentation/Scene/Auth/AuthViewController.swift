@@ -11,37 +11,15 @@ import Combine
 final class AuthViewController: UIViewController {
     @Inject(container: .viewModels) private var viewModel: AuthViewModel
 
-    private let emailTextField: UITextField = {
-        let textField = UITextField()
-        textField.placeholder = "Email"
-        textField.borderStyle = .roundedRect
-        textField.keyboardType = .emailAddress
-        return textField
-    }()
+    private let emailTextField: UITextField = .email
+    private let passwordTextField: UITextField = .password
 
-    private let passwordTextField: UITextField = {
-        let textField = UITextField()
-        textField.placeholder = "Password"
-        textField.borderStyle = .roundedRect
-        textField.isSecureTextEntry = true
-        return textField
-    }()
-
-    private let emailErrorLabel: UILabel = {
-        let label = UILabel()
-        label.textColor = .red
-        return label
-    }()
-
-    private let passwordErrorLabel: UILabel = {
-        let label = UILabel()
-        label.textColor = .red
-        return label
-    }()
+    private let emailErrorLabel: UILabel = .error
+    private let passwordErrorLabel: UILabel = .error
 
     private lazy var authButton: UIButton = {
         let button = UIButton(type: .system)
-        button.setTitle("Login", for: .normal)
+        button.setTitle("Auth", for: .normal)
         button.addTarget(self, action: #selector(authTapped), for: .touchUpInside)
         return button
     }()

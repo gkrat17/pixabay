@@ -35,9 +35,9 @@ extension RegistrationViewModel {
         cancellable = Publishers.CombineLatest4($email, $password, $age, $loading)
             .sink { [weak self] email, password, age, loading in
                 guard let self else { return }
-                emailError = if email.isEmpty { "" } else { emailValidator.validationError(input: email) ?? "" }
+                emailError    = if email.isEmpty    { "" } else { emailValidator.validationError(input: email) ?? "" }
                 passwordError = if password.isEmpty { "" } else { passwordValidator.validationError(input: password) ?? "" }
-                ageError = if password.isEmpty { "" } else { ageValidator.validationError(input: age) ?? "" }
+                ageError      = if age.isEmpty      { "" } else { ageValidator.validationError(input: age) ?? "" }
                 isEnabled = !loading &&
                             !email.isEmpty && !password.isEmpty && !age.isEmpty &&
                             emailError.isEmpty && passwordError.isEmpty && ageError.isEmpty
