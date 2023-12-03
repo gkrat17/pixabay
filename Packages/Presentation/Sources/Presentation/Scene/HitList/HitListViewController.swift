@@ -45,26 +45,21 @@ fileprivate extension HitListViewController {
         collectionView = .init(frame: view.bounds, collectionViewLayout: createLayout())
         collectionView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         collectionView.backgroundColor = .systemBackground
-        collectionView.register(TextCell.self, forCellWithReuseIdentifier: TextCell.reuseIdentifier)
+        collectionView.register(HitListItemView.self, forCellWithReuseIdentifier: HitListItemView.reuseIdentifier)
         collectionView.delegate = self
         view.addSubview(collectionView)
     }
 
     func configureDataSource() {
         dataSource = UICollectionViewDiffableDataSource<Section, HitEntity>(collectionView: collectionView) {
-            (collectionView: UICollectionView, indexPath: IndexPath, item: HitEntity) -> UICollectionViewCell? in
+            (collectionView: UICollectionView, indexPath: IndexPath, entity: HitEntity) -> UICollectionViewCell? in
 
             guard let cell = collectionView.dequeueReusableCell(
-                withReuseIdentifier: TextCell.reuseIdentifier,
-                for: indexPath) as? TextCell
+                withReuseIdentifier: HitListItemView.reuseIdentifier,
+                for: indexPath) as? HitListItemView
                 else { fatalError("Cannot create new cell") }
 
-            cell.label.text = item.user
-            cell.contentView.backgroundColor = .blue
-            cell.layer.borderColor = UIColor.black.cgColor
-            cell.layer.borderWidth = 1
-            cell.label.textAlignment = .center
-            cell.label.font = UIFont.preferredFont(forTextStyle: .title1)
+            cell.configure(with: entity)
 
             return cell
         }
@@ -86,12 +81,12 @@ fileprivate extension HitListViewController {
     }
 
     func createLayout() -> UICollectionViewLayout {
-        let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0),
-                                              heightDimension: .fractionalHeight(1.0))
+        let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(0.5),
+                                             heightDimension: .fractionalHeight(1.0))
         let item = NSCollectionLayoutItem(layoutSize: itemSize)
 
         let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0),
-                                               heightDimension: .absolute(54))
+                                              heightDimension: .fractionalWidth(0.5))
         let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitem: item, count: 2)
         let spacing = CGFloat(10)
         group.interItemSpacing = .fixed(spacing)
