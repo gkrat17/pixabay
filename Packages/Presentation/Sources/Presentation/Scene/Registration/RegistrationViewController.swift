@@ -13,7 +13,6 @@ final class RegistrationViewController: UIViewController {
 
     private let emailTextField: UITextField = .email
     private let passwordTextField: UITextField = .password
-
     private let ageTextField: UITextField = {
         let textField = UITextField()
         textField.placeholder = "Age"
@@ -21,17 +20,10 @@ final class RegistrationViewController: UIViewController {
         textField.keyboardType = .decimalPad
         return textField
     }()
-
     private let emailErrorLabel: UILabel = .error
     private let passwordErrorLabel: UILabel = .error
     private let ageErrorLabel: UILabel = .error
-
-    private lazy var registerButton: UIButton = {
-        let button = UIButton(type: .system)
-        button.setTitle("Register", for: .normal)
-        button.addTarget(self, action: #selector(registerTapped), for: .touchUpInside)
-        return button
-    }()
+    private lazy var registerButton: UIButton = .button(title: "Register", selector: #selector(registerTapped))
 
     private var cancellables = Set<AnyCancellable>()
 
