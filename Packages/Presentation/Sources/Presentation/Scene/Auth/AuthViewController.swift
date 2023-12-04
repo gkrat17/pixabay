@@ -98,7 +98,7 @@ fileprivate extension AuthViewController {
         viewModel.auth()
     }
 
-    @objc private func registerTapped() {
+    @objc func registerTapped() {
         viewModel.register()
     }
 }

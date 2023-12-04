@@ -17,4 +17,30 @@ public struct HitEntity: Decodable, Hashable {
     public let likes: Int?
     public let comments: Int?
     public let user: String?
+
+    public init(id: Int?,
+                type: String?,
+                tags: String?,
+                previewURL: String?,
+                largeImageURL: String?,
+                imageSize: Int?,
+                views: Int?,
+                downloads: Int?,
+                collections: Int?,
+                likes: Int?,
+                comments: Int?,
+                user: String?) {
+        self.id = id
+        self.type = type
+        self.tags = tags
+        self.previewURL = previewURL
+        self.largeImageURL = largeImageURL
+        self.imageSize = imageSize
+        self.views = views
+        self.downloads = downloads
+        self.collections = collections
+        self.likes = likes
+        self.comments = comments
+        self.user = user
+    }
 }

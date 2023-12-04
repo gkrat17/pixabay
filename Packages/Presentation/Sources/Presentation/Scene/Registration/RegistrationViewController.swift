@@ -103,7 +103,7 @@ fileprivate extension RegistrationViewController {
         ageTextField.delegate = self
     }
 
-    @objc private func registerTapped() {
+    @objc func registerTapped() {
         viewModel.register()
     }
 }

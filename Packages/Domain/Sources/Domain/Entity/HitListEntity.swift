@@ -6,4 +6,8 @@
 
 public struct HitListEntity: Decodable {
     public let hits: [HitEntity]
+
+    public init(hits: [HitEntity]) {
+        self.hits = hits
+    }
 }
